@@ -36,6 +36,25 @@ Messages arrive in order and are processed synchronously. Anything in a `setTime
 ---
 # function
 
+## this
+In regular functions, `this` represents the object which called the function. `this` is not assigned a value until an object invokes the function.
+
+Simple object example:
+```javascript
+const me = {
+  fn: 'Barry',
+  ln: 'Hutts',
+  fullName: function() {
+    return this.fn + ' ' + this.ln;
+  }
+}
+console.log(me.fullName());
+```
+
+## arrow functions
+No bindings for `this`, `super`, `arguments`, or `new.target`. Therefore, arrow functions are ill-suited as methods.
+
+
 ## closure
 A function bound to its lexical state. Good for data closing and encapsulation.
 
@@ -44,7 +63,7 @@ If closure is not specifically needed, it is better to assign methods to object 
 myObject.prototype.getName = () => return this.name;
 ```
 
-## apply, call bind
+## apply, call, & bind
 Built-in function methods for assigning `this` vale.
 
 ### apply()
@@ -55,7 +74,7 @@ Calls a function with a given `this` value and arguments given individually.
 nestedFunction.apply(cat) like Apply, but takes multiple arguments, separated by commas.
 
 ### bind()
-Like call, but doesn't invoke function.
+Like call, but doesn't invoke function. Allows you to easily set which specific object will be bound to this when a function or method is invoked.
 
 ## currying
 A way of splitting function parameters into nested functions, where you only need to pass some variables to each. Helps reduce repetition and encourages you to understand which variables are most likely to change. Works well for creating function factories.
