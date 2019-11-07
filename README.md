@@ -58,7 +58,41 @@ nestedFunction.apply(cat) like Apply, but takes multiple arguments, separated by
 Like call, but doesn't invoke function.
 
 ## currying
-A way of splitting function parameters into nested functions, where you only need to pass some variables to each. Helps reduce repetition and encourages you to understand which variables are most likely to change.
+A way of splitting function parameters into nested functions, where you only need to pass some variables to each. Helps reduce repetition and encourages you to understand which variables are most likely to change. Works well for creating function factories.
+
+```javascript
+const greetMaker = function(greeting) {
+  return (name) => {
+    console.log(greeting + ', ' + name);
+  }
+}
+
+const sayHello = greetMaker('Hello there');
+sayHello('Elizabeth');
+
+const sayBye = greetMaker('See ya later');
+sayBye('Lizzie');
+
+greetMaker('Howdy')('Michael'); // You can also pass each parameter in separate sets of parentheses.
+```
+To keep things from getting too messy/nested, you can create a currying function like so:
+```javascript
+const makeCurry = function(uncurried) {
+  let param = Array.prototype.slice.call(arguments, 1);
+  return function() {
+    return uncurried.apply(this, param.concat(
+      Array.prototype.slice.call(arguments, 0)
+    ));
+  };
+}
+
+const greetMaker = (greeting, separator, emphasis, name) => {
+  console.log(greeting + separator + name + emphasis);
+}
+
+const sayHi = makeCurry(greetMaker, 'Hi', ', ', '.');
+sayHi('Mork');
+```
 
 ---
 # array
