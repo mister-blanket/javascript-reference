@@ -8,7 +8,9 @@ JS uses lexical scope, which allows scope to be determined by reading static tex
 
 
 ## hoisting
+`var` is hoisted. `let` and `const` are not.
 
+Declarations are hoisted. Initializations are not.
 
 ## higher order components (HOC)
 
@@ -32,6 +34,11 @@ Onclick events work in nested elements and bubble most-nested to least of there 
 
 ## event loop
 Messages arrive in order and are processed synchronously. Anything in a `setTimeout()` callback will be processed after all other code, even if the timeout is 0.
+
+## strict mode
+* Makes debugging easier by throwing errors, which would have otherwise passed.
+* Prevents accidental globals
+* Eliminates `this` being set to window
 
 ---
 # functions
