@@ -1,5 +1,64 @@
 # JavaScript Reference
 
+<!-- TOC -->
+- [general concepts](#general-concepts)
+  - [scope](#scope)
+  - [hoisting](#hoisting)
+  - [higher order components (HOC)](#higher-order-components-hoc)
+  - [inheritance](#inheritance)
+  - [bubbling](#bubbling)
+  - [event loop](#event-loop)
+  - [strict mode](#strict-mode)
+- [operators](#operators)
+  - [`==`](#)
+  - [`===`](#-1)
+- [objects](#objects)
+  - [`assign()`](#assign)
+- [functions](#functions)
+  - [this](#this)
+    - [`this` in a callback](#this-in-a-callback)
+    - [`this` in a closure](#this-in-a-closure)
+    - [method assigned to a variable](#method-assigned-to-a-variable)
+    - [borrowing methods](#borrowing-methods)
+  - [arrow functions](#arrow-functions)
+  - [closure](#closure)
+  - [methods](#methods)
+    - [apply, call, & bind](#apply-call--bind)
+    - [`apply()`](#apply)
+    - [`call()`](#call)
+    - [`bind()`](#bind)
+  - [currying](#currying)
+- [arrays](#arrays)
+  - [`filter()`](#filter)
+  - [`join()`](#join)
+  - [`map()`](#map)
+  - [`pop()`](#pop)
+  - [`reverse()`](#reverse)
+  - [`slice(start, end)`](#slicestart-end)
+  - [`splice(start, items)`](#splicestart-items)
+- [strings](#strings)
+  - [`slice(start, end)`](#slicestart-end-1)
+  - [`split()`](#split)
+- [promises & callbacks](#promises--callbacks)
+- [class](#class)
+  - [class declarations](#class-declarations)
+  - [sub classing with `extends`](#sub-classing-with-extends)
+  - [class constructor](#class-constructor)
+- [testing](#testing)
+  - [in code](#in-code)
+    - [numbers](#numbers)
+    - [try](#try)
+    - [catch](#catch)
+    - [throw](#throw)
+    - [finally](#finally)
+    - [errors](#errors)
+  - [of code](#of-code)
+    - [unit testing](#unit-testing)
+    - [integration testing](#integration-testing)
+    - [end-to-end testing](#end-to-end-testing)
+
+<!-- TOC END -->
+
 
 # general concepts
 
@@ -10,7 +69,7 @@ JS uses lexical scope, which allows scope to be determined by reading static tex
 ## hoisting
 `var` is hoisted. `let` and `const` are not.
 
-Declarations are hoisted. Initializations are not.
+Declarations (`var x;`) are hoisted. Initializations (`x = 2;`) are not.
 
 ## higher order components (HOC)
 
@@ -35,10 +94,46 @@ Onclick events work in nested elements and bubble most-nested to least of there 
 ## event loop
 Messages arrive in order and are processed synchronously. Anything in a `setTimeout()` callback will be processed after all other code, even if the timeout is 0.
 
+__stack overflow__ can happen when a recursive call gets too nested and the stack builds up. To solve this, put the recursive call in a setTimeout(), which will put each new call in the event queue rather than the stack.
+```javascript
+var list = readHugeList();
+
+var nextListItem = function() {
+    var item = list.pop();
+
+    if (item) {
+        // process the list item...
+        setTimeout( nextListItem, 0);
+    }
+};
+```
+
 ## strict mode
 * Makes debugging easier by throwing errors, which would have otherwise passed.
 * Prevents accidental globals
 * Eliminates `this` being set to window
+
+
+---
+# operators
+
+### `==`
+Returns true if both expressions have the same value. Does coercion.
+
+### `===`
+Returns true if both expressions have the same type and same value.
+
+
+---
+# objects
+
+
+## `assign()`
+Deep clones values of all enumerable own properties.
+```JavaScript
+var x = {name: "michael", friends: {best: "liz", secondBest: 'puppy'}};
+var y = Object.assign({}, x);
+```
 
 ---
 # functions
@@ -141,19 +236,21 @@ If closure is not specifically needed, it is better to assign methods to object 
 myObject.prototype.getName = () => return this.name;
 ```
 
-## apply, call, & bind
+## methods
+
+### apply, call, & bind
 Built-in function methods for assigning `this` vale.
 
 Apply & call are useful for borrowing methods, such as borrowing Array methods on an array-like object.
 
-### apply()
+### `apply()`
 nestedFunction.apply(cat) gives this context for nestedFunction and invokes it. Takes a single array argument. This is useful for _variadic_ functions; a function that takes a varying number of arguments.
 
-### call()
+### `call()`
 Calls a function with a given `this` value and arguments given individually.
 nestedFunction.apply(cat) like Apply, but takes multiple arguments, separated by commas.
 
-### bind()
+### `bind()`
 Useful for setting `this` in methods and currying.
 
 Like call, but doesn't invoke function. Allows you to easily set which specific object will be bound to this when a function or method is invoked.
@@ -220,7 +317,8 @@ sayHi('Mork');
 
 ---
 # arrays
-## filter()
+
+### `filter()`
 Creates a new array that pass through the filter requirements.
 ```javascript
 const girlNames = ['donna', 'beverly', 'claire', 'beatrice', 'meg', 'bonita'];
@@ -230,7 +328,15 @@ const noBNames = girlNames.filter(name => name[0] !== 'b');
 console.log(noBNames); // Array ["donna", "claire", "meg"]
 ```
 
-## map()
+### `join()`
+Returns an array as a string.
+
+```javascript
+let words = ['Hello', 'there', 'comrade!'];
+words.join(' '); // Hello there comrade!
+```
+
+### `map()`
 Creates a new array with the results of passing all elements of another array through a function.
 ```JavaScript
 let nouns = [sad, quick, smart];
@@ -241,6 +347,50 @@ const adjectives = nouns.map(x => x + 'ly');
 console.log(adjectives); // [sadly, quickly, smartly]
 ```
 
+###  `pop()`
+Removes the last element of an array and returns that element.
+
+### `reverse()`
+Reverses array. Changes original array.
+
+### `slice(start, end)`
+Returns a new array with the extracted parts of the old array.
+```JavaScript
+let arr1 = [1, 2, 3, 5, 8]
+let arr2 = arr1.slice(1,-1); // [2, 3, 5]  
+```
+
+### `splice(start, items)`
+Adds/removes items from an array. Mutates the original array.
+
+array.splice(_index, howmany, item1, ..., itemZ_)
+_index_ - starting position
+_howmany_ - num items to remove (default = 0)
+_item1, ..., itemZ_ - new items to be added to array
+```javascript
+arr1 = ['justin', 'angie', 'george', 'nikki'];
+arr1.splice(2, 1, 'michael', 'krystle'); // ['justin', 'angie', 'michael', 'krystle', 'nikki']
+```
+
+---
+# strings
+
+### `slice(start, end)`
+Returns a new string with the extracted parts of the old string.
+```JavaScript
+'hello friend'.slice(3,-2); //  lo frie
+```
+
+### `split()`
+Splits a string into an array of substrings and returns the new array. Does not change the original string.
+
+```javascript
+let str = 'hi there, you'
+str.split(''); // ['h', 'i', ' ', 't', 'h', 'e', 'r', 'e', ',', ' ', 'y', 'o', 'u']
+str.split(' '); // ['hi', 'there,', 'friend']
+str.split(','); // ['hi there', 'friend']
+```
+
 
 ---
 # promises & callbacks
@@ -249,6 +399,7 @@ console.log(adjectives); // [sadly, quickly, smartly]
 ---
 # class
 Unlike functions, classes are not hoisted.
+
 ## class declarations
 ```javascript
 class Rectangle { // Rectangle is class name
@@ -288,9 +439,69 @@ p.speak(); // Patches barks.
 Special method for creating and initializing a class object. Can use `super` to call constructor of the super class.
 
 ---
+
 # testing
-## unit testing
 
-## integration testing
+## in code
 
-## end-to-end testing
+### numbers
+`isNaN(<value>)` tests whether a value is an illegal number.
+```javascript
+isNaN(123) // false
+isNaN('123') // false
+isNaN(true) // false
+```
+
+`Number.isInteger(<value>)` tests whether value is an integer.
+
+### try
+Requires at least one `catch` or `finally` clause.
+```javascript
+try {
+  addMessage("Howdy friend!");
+}
+catch(err) {
+  // handle...
+}
+```
+
+### catch
+If JS creates an err object, this will run. You can access the _name_ and _message_ properties.
+```javascript
+catch(err) {
+  alert(err.message);
+}
+```
+
+### throw
+For creating custom error messages.
+```javascript
+
+```
+
+### finally
+Runs regardless of the try/catch result.
+```javascript
+finally {
+  console.log('all done');
+}
+```
+
+### errors
+The error object has two properties, `name` and `message`.
+
+Error name values are one of six types:
+* EvalError
+* RangeError
+* ReferenceError
+* SyntaxError
+* TypeError
+* URIError
+
+## of code
+
+### unit testing
+
+### integration testing
+
+### end-to-end testing
