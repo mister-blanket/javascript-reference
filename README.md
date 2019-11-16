@@ -126,7 +126,7 @@ var y = Object.assign({}, x);
 ```
 
 ---
-# (functions)[functions.md]
+# [functions](functions.md)
 
 ---
 # arrays
