@@ -2,19 +2,12 @@
 
 <!-- TOC -->
 - [this](#this)
-  - [`this` in a callback](#this-in-a-callback)
-  - [`this` in a closure](#this-in-a-closure)
-  - [method assigned to a variable](#method-assigned-to-a-variable)
-  - [borrowing methods](#borrowing-methods)
   - [arrow functions](#arrow-functions)
 - [closure](#closure)
 - [methods](#methods)
   - [apply, call, & bind](#apply-call--bind)
-    - [`apply()`](#apply)
-    - [`call()`](#call)
-    - [`bind()`](#bind)
 - [currying](#currying)
-- [promises & callbacks](#promises--callbacks)
+- [promises](#promises)
 
 <!-- TOC END -->
 
@@ -195,4 +188,28 @@ const sayHi = makeCurry(greetMaker, 'Hi', ', ', '.');
 sayHi('Mork');
 ```
 
-# promises & callbacks
+# promises
+An async action which may, in the future, produce a value. It can notify other actions when it has completed.  
+
+Promise as a variable:
+```javascript
+let twoSeconds = new Promise((resolve, reject) => {
+  setTimeout(() => resolve(), 2000);
+});
+
+twoSeconds // Promise runs first
+  .then(() => { // This runs after promise is resolved
+  console.log('Your two seconds is up.');
+});
+```
+
+Promise as a function:
+```javascript
+let waitSeconds = numSeconds => new Promise(resolve => {
+  const message = `${numSeconds} seconds have passed!`;
+  setTimeout(() => resolve(message), numSeconds * 1000);
+});
+
+waitSeconds(4)
+  .then(message => console.log(message));
+```

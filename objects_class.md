@@ -2,7 +2,8 @@
 
 <!-- TOC -->
 - [objects](#objects)
-  - [`assign()`](#assign)
+  - [methods](#methods)
+    - [`assign()`](#assign)
 - [class](#class)
   - [class declarations](#class-declarations)
   - [sub classing with `extends`](#sub-classing-with-extends)
@@ -12,8 +13,19 @@
 
 # objects
 
+```javascript
+car = {
+  year: 2003,
+  make: 'Toyota',
+  model: 'Corolla',
+  cost: 3200
+}
+```
 
-## `assign()`
+
+## methods
+
+### `assign()`
 Deep clones values of all enumerable own properties.
 ```JavaScript
 var x = {name: "michael", friends: {best: "liz", secondBest: 'puppy'}};
@@ -21,7 +33,7 @@ var y = Object.assign({}, x);
 ```
 
 # class
-Unlike functions, classes are not hoisted.
+Structures for creating and managing objects. Unlike functions, classes are not hoisted.
 
 ## class declarations
 ```javascript
