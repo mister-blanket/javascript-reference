@@ -1,8 +1,14 @@
-# JavaScript Reference
+# javascript reference
 
-[general concepts](general.md)  
-[strings](strings.md)  
-[objects & class](objects_class.md)  
-[arrays](arrays.md)  
-[functions](functions.md)  
-[testing](testing.md)  
+## concepts
+### [general concepts](general.md)
+### [design patterns](design_patterns.md)
+
+## objects  
+### [objects & class](objects_class.md)  
+### [strings](strings.md)  
+### [arrays](arrays.md)  
+### [functions](functions.md)  
+
+## testing
+### [testing](testing.md)  
