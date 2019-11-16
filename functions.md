@@ -6,18 +6,19 @@
   - [`this` in a closure](#this-in-a-closure)
   - [method assigned to a variable](#method-assigned-to-a-variable)
   - [borrowing methods](#borrowing-methods)
-- [arrow functions](#arrow-functions)
+  - [arrow functions](#arrow-functions)
 - [closure](#closure)
 - [methods](#methods)
   - [apply, call, & bind](#apply-call--bind)
-  - [`apply()`](#apply)
-  - [`call()`](#call)
-  - [`bind()`](#bind)
+    - [`apply()`](#apply)
+    - [`call()`](#call)
+    - [`bind()`](#bind)
 - [currying](#currying)
+- [promises & callbacks](#promises--callbacks)
 
 <!-- TOC END -->
 
-## this
+# this
 In regular functions, `this` represents the object which called the function. `this` is not assigned a value until an object invokes the function.
 
 Simple object example:
@@ -107,7 +108,7 @@ No bindings for `this`, `super`, `arguments`, or `new.target`. Therefore, arrow 
 `hello = val => "Hello " + val;`
 
 
-## closure
+# closure
 A function bound to its lexical state. Good for data closing and encapsulation.
 
 If closure is not specifically needed, it is better to assign methods to object prototype, as it is better for performance.
@@ -115,9 +116,9 @@ If closure is not specifically needed, it is better to assign methods to object 
 myObject.prototype.getName = () => return this.name;
 ```
 
-## methods
+# methods
 
-### apply, call, & bind
+## apply, call, & bind
 Built-in function methods for assigning `this` vale.
 
 Apply & call are useful for borrowing methods, such as borrowing Array methods on an array-like object.
@@ -157,7 +158,7 @@ Use when borrowing methods:
 Use when currying:
 
 
-## currying
+# currying
 A way of splitting function parameters into nested functions, where you only need to pass some variables to each. Helps reduce repetition and encourages you to understand which variables are most likely to change. Works well for creating function factories.
 
 ```javascript
@@ -193,3 +194,5 @@ const greetMaker = (greeting, separator, emphasis, name) => {
 const sayHi = makeCurry(greetMaker, 'Hi', ', ', '.');
 sayHi('Mork');
 ```
+
+# promises & callbacks
