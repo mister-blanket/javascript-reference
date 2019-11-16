@@ -348,10 +348,16 @@ console.log(adjectives); // [sadly, quickly, smartly]
 ```
 
 ###  `pop()`
-Removes the last element of an array and returns that element.
+Removes the last element of an array and returns that element. _see `shift()` to remove from the beginning_.
+
+### `push()`
+Adds an element to the end of an array. _*see `unshift()` to add to beginning_.
 
 ### `reverse()`
 Reverses array. Changes original array.
+
+### `shift()`
+Removes the first element of an array. * mutates the array in real time!
 
 ### `slice(start, end)`
 Returns a new array with the extracted parts of the old array.
@@ -371,6 +377,9 @@ _item1, ..., itemZ_ - new items to be added to array
 arr1 = ['justin', 'angie', 'george', 'nikki'];
 arr1.splice(2, 1, 'michael', 'krystle'); // ['justin', 'angie', 'michael', 'krystle', 'nikki']
 ```
+
+### `unshift()`
+Adds an element to the beginning of an array.
 
 ---
 # strings
