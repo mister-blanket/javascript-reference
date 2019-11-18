@@ -142,6 +142,11 @@ Returns true if both expressions have the same value. Does coercion.
 ### `===`
 Returns true if both expressions have the same type and same value.
 
+## conditional (ternary) operator
+```javascript
+const ouiji = () => (Math.floor(Math.random() * 2) === 0 ? "no" : "yes");
+```
+
 
 
 # recursion
