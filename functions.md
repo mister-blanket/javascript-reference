@@ -11,6 +11,50 @@
 
 <!-- TOC END -->
 
+
+# class
+Structures for creating and managing objects. Unlike functions, classes are not hoisted. It is a good rule to capitalize class variable names.
+
+## class declarations
+```javascript
+class Rectangle { // Rectangle is class name
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+}
+```
+## sub classing with `extends`
+Creates a child class from a parent class.
+```javascript
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    console.log(this.name + ' makes a noise.');
+  }
+}
+
+class Dog extends Animal {
+  constructor(name) {
+    super(name); //call the super class constructor and pass in the name parameter
+  }
+
+  speak() {
+    console.log(this.name + ' barks.');
+  }
+}
+
+let p = new Dog('Patches');
+p.speak(); // Patches barks.
+```
+
+## class constructor
+Special method for creating and initializing a class object. Can use `super` to call constructor of the super class.
+
+
+
 # this
 In regular functions, `this` represents the object which called the function. `this` is not assigned a value until an object invokes the function.
 
@@ -149,6 +193,28 @@ const showUserData = user.showData.bind(user);
 Use when borrowing methods:
 
 Use when currying:
+
+
+### private methods
+Truly private methods are inefficient for memory and should rarely be used.
+
+Example of a truly private method:
+```JavaScript
+const Employee = function(name, salary) {
+  this.name = name;
+  this.salary = salary;
+
+  // private method
+  const increaseSalary = function() { // each instance of Employee will create its own copy of this method.
+    this.salary = this.salary * 1.02;
+  }
+
+  this.displayIncreasedSalary = function() {
+    increaseSalary();
+    console.log(this.salary);
+  }
+}
+```
 
 
 # currying

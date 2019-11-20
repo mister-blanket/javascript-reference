@@ -55,6 +55,16 @@ favoriteMovies.forEach(listTitle);
 
 # methods
 
+### `delete`
+Deletes the object property, but does not reindex the array. The item at that position will become `undefined`.
+```JavaScript
+let arr1 = ['hi', 'there', 'my', 'friend'];
+arr1.length; // 4
+delete arr1[2];
+arr1.length; // 4
+arr1[2]; // undefined
+```
+
 ### `filter()`
 Creates a new array that pass through the filter requirements.
 ```javascript
@@ -72,6 +82,9 @@ favoriteMovies = [{ title:'Apocalypse Now', year:1979, director:'Francis Ford Co
 let classics = favoriteMovies.filter(movie => movie.year < 1960);
 ```
 
+### `Array.isArray(arrName)`
+Useful for checking whether an object is an array.
+
 ### `join()`
 Returns an array as a string.
 
@@ -79,6 +92,9 @@ Returns an array as a string.
 let words = ['Hello', 'there', 'comrade!'];
 words.join(' '); // Hello there comrade!
 ```
+
+###  `length`
+Lists the number of items in the array. Setting `arr.length = 0` is a useful way for emptying an array.
 
 ### `map()`
 Creates a new array with the results of passing all elements of another array through a function.

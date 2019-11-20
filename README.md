@@ -5,7 +5,7 @@
 * [design patterns](design_patterns.md)
 
 ## objects
-* [objects & class](objects_class.md)
+* [objects](objects.md)
 * built-in objects
   * [math](math.md)  
   * [JSON](JSON.md)
