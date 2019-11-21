@@ -1,11 +1,23 @@
 # functions
 
 <!-- TOC -->
+- [class](#class)
+  - [class declarations](#class-declarations)
+  - [sub classing with `extends`](#sub-classing-with-extends)
+  - [class constructor](#class-constructor)
 - [this](#this)
+  - [`this` in a callback](#this-in-a-callback)
+  - [`this` in a closure](#this-in-a-closure)
+  - [method assigned to a variable](#method-assigned-to-a-variable)
+  - [borrowing methods](#borrowing-methods)
   - [arrow functions](#arrow-functions)
 - [closure](#closure)
 - [methods](#methods)
   - [apply, call, & bind](#apply-call--bind)
+    - [`apply()`](#apply)
+    - [`call()`](#call)
+    - [`bind()`](#bind)
+    - [private methods](#private-methods)
 - [currying](#currying)
 - [promises](#promises)
 
@@ -13,7 +25,9 @@
 
 
 # class
-Structures for creating and managing objects. Unlike functions, classes are not hoisted. It is a good rule to capitalize class variable names.
+Special functions for creating and managing objects. Properties are set via the `constructor()` method. Unlike normal functions, classes are not hoisted. It is a good rule to capitalize class variable names.
+
+Class methods can be set after the constructor method.
 
 ## class declarations
 ```javascript
@@ -22,8 +36,13 @@ class Rectangle { // Rectangle is class name
     this.height = height;
     this.width = width;
   }
+  
+  area() {
+    return this.height * this.width;
+  }
 }
 ```
+
 ## sub classing with `extends`
 Creates a child class from a parent class.
 ```javascript
@@ -49,9 +68,6 @@ class Dog extends Animal {
 let p = new Dog('Patches');
 p.speak(); // Patches barks.
 ```
-
-## class constructor
-Special method for creating and initializing a class object. Can use `super` to call constructor of the super class.
 
 
 

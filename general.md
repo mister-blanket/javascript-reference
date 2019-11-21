@@ -14,6 +14,7 @@
 - [operators](#operators)
   - [`==`](#)
   - [`===`](#-1)
+  - [conditional (ternary) operator](#conditional-ternary-operator)
 - [recursion](#recursion)
 - [scope](#scope)
 - [strict mode](#strict-mode)
