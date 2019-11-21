@@ -29,13 +29,13 @@ class Character {
     this._name = name;
     this._race = race;
     this._from = from;
-
-    this.getInfo = function() {
-      const vowels = ['a', 'e', 'i', 'o', 'u'];
-      const a = (vowels.indexOf(this._race[0].toLowerCase()) === -1 ? "a" : "an")
-      return `${this._name} is ${a} ${this._race} from ${this._from}`;
-    };
   }
+
+  getInfo() {
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    const a = (vowels.indexOf(this._race[0].toLowerCase()) === -1 ? "a" : "an")
+    return `${this._name} is ${a} ${this._race} from ${this._from}`;
+  };
 }
 
 const Frodo = new Character('Frodo Baggins', 'Hobbit', 'The Shire');
@@ -51,34 +51,32 @@ Another class-based creational pattern. It is used for generating multiple types
 
 ```javascript
 class WeaponFactory {
-  constructor() {
-    this.createWeapon = function(type) {
-      let weapon;
-      if (type === 'sword' || type === 'axe') weapon = new Melee(type);
-      else if (type === 'bow') weapon = new Bow(type);
-      weapon.aim = function() {
-        return `You aim the ${type}.`;
-      };
-      return weapon;
-    };    
-  }
+  createWeapon(type) {
+    let weapon;
+    if (type === 'sword' || type === 'axe') weapon = new Melee(type);
+    else if (type === 'bow') weapon = new Bow(type);
+    weapon.aim = function() {
+      return `You aim the ${type}.`;
+    };
+    return weapon;
+  };    
 }
 
 class Melee {
   constructor(type) {
     this._type = type;
-    this.swing = function() {
-      return `You swing the ${this._type}`;
-    }
+  }
+  swing() {
+    return `You swing the ${this._type}`;
   }
 }
 
 class Bow {
   constructor(type) {
     this._type = type;
-    this.pull = function() {
-      return `You load an arrow in the ${this._type}`;
-    }
+  }
+  pull() {
+    return `You load an arrow in the ${this._type}`;
   }
 }
 
@@ -95,6 +93,7 @@ myBow.pull();
 
 ### Prototype pattern
 Uses `Object.create` to take the prototype of existing objects and add new properties to it.
+
 ```javascript
 const person = {
   eyes: 2,
@@ -148,6 +147,7 @@ Useful for adding functionality to an object or class without affecting other pi
 
 ### Decorator Pattern
 A way of adding functionality to existing classes. An alternative to sub-classing.
+
 ```javascript
 class Armor {
   constructor(type, smith, protection) {
@@ -176,15 +176,153 @@ frodosMail.reveal();
 ```
 
 ### Facade Pattern
-Creates a simple, public API, which hides internal methods. 
+Creates a simple, public API, which hides internal methods.
+
+```javascript
+let currentId = 0;
+
+class SightingRegistry {
+  registerSighting(sighter, type, details, location) {
+    const id = SightingRegistry._uniqueIdGenerator();
+    let registry;
+    if (type === 'unnatural') {
+      registry = new UnnaturalSightings();
+    } else {
+      registry = new AnimalSightings();
+    }
+    return registry.addSighting({ id, sighter, details, location });
+  }
+
+  static _uniqueIdGenerator() {
+    return ++currentId;
+  }
+}
+
+class Sightings {
+  constructor() {
+    this.sightings = [];
+  }
+
+  addSighting(sighting) {
+    this.sightings.push(sighting);
+    return this.replyMessage(sighting);
+  }
+
+  getSighting(id) {
+    return this.sightings.find(sighting => sighting.id === id);
+  }
+
+  replyMessage(sighting) {}
+}
+
+class AnimalSightings extends Sightings {
+  constructor() {
+    super();
+    if (AnimalSightings.exists) {
+      return AnimalSightings.instance;
+    }
+    AnimalSightings.instance = this;
+    AnimalSightings.exists = true;
+    return this;
+  }
+
+  replyMessage({ id, sighter, details, location }) {
+    return `Sighting No. ${id}, reported by ${sighter}, regarding ${details} seen in ${location} has been logged and will be investigated by the Middle Earth Beast Investigation Unit.`
+  }
+}
+
+class UnnaturalSightings extends Sightings {
+  constructor() {
+    super();
+    if (UnnaturalSightings.exists) {
+      return UnnaturalSightings.instance;
+    }
+    UnnaturalSightings.instance = this;
+    UnnaturalSightings.exists = true;
+    return this;
+  }
+
+  replyMessage({ id, sighter, details, location }) {
+    return `Sighting No. ${id}, reported by ${sighter}, regarding ${details} seen in ${location} has been logged and will be investigated by the Middle Earth Unnatural Beasts Investigation Unit.`
+  }
+}
+
+const registry = new SightingRegistry();
+
+const fox = registry.registerSighting('Pippin Took', 'animal', 'a curious looking fox', "Maggot's Farm");
+const wight = registry.registerSighting('Samwise Gamgee', 'unnatural', 'a barrow wight', "The Barrow Downs");
+const orc = registry.registerSighting('Legolas', 'creature', 'a roaming org', "Redhorn Pass");
+const balrog = registry.registerSighting('Gandalf the Grey', 'unnatural', 'a balrog', "The Mines of Moria");
+```
 
 
 # behavioral patterns
 These help dissimilar objects work together.
 
 ### Observer Pattern
+Allows many dependent objects' (subscriber) status to be updated when a main object (publisher) changes its state. Used in `addEventListener` and in React.
 
+```JavaScript
+class Newsfeed {
+  constructor() {
+    this._observers = [];
+  }
 
-# architectual patterns
+  subscribe(observer) {
+    this._observers.push(observer);
+  }
+
+  unsubscribe(observer) {
+    this._observers = this._observers.filter(obs => observer !== obs);
+  }
+
+  fire(change) {
+    this._observers.forEach(observer => {
+      observer.update(change);
+    });
+  }
+}
+
+class Observer {
+  constructor(state) {
+    this.state = state;
+    this.initialState = state;
+  }
+
+  update(change) {
+    let state = this.state;
+    switch(change) {
+      case 'INC':
+        this.state = ++ state;
+        break;
+      case 'DEC':
+        this.state = --state;
+        break;
+      default:
+        this.state = this.initialState;
+    }
+  }
+}
+
+const huffpost = new Newsfeed();
+const nytimes = new Newsfeed();
+
+const user1 = new Observer(20);
+const user2 = new Observer(13);
+
+user1.state;
+
+nytimes.subscribe(user1);
+nytimes.subscribe(user2);
+huffpost.subscribe(user1);
+
+nytimes.fire('INC');
+nytimes.fire('INC');
+nytimes.fire('INC');
+huffpost.fire('DEC');
+
+user1.state;
+user2.state;
+```
 
 ### Model, View, Controller
