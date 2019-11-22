@@ -1,10 +1,18 @@
 # objects
 
 <!-- TOC -->
-- [objects](#objects)
-  - [methods](#methods)
-    - [`assign()`](#assign)
-    - [`delete`](#delete)
+- [general](#general)
+  - [creating objects](#creating-objects)
+    - [object initializer](#object-initializer)
+    - [constructor function (i.e. class)](#constructor-function-ie-class)
+    - [`Object.create()`](#objectcreate)
+    - [accessors (`get` & `set`)](#accessors-get--set)
+  - [enumerating properties](#enumerating-properties)
+    - [`for...in` loops](#forin-loops)
+    - [`Object.keys(o)`](#objectkeyso)
+- [methods](#methods)
+  - [`assign()`](#assign)
+  - [`delete`](#delete)
 
 <!-- TOC END -->
 

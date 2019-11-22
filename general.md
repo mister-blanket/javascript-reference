@@ -167,6 +167,8 @@ JS uses lexical scope, which allows scope to be determined by reading static tex
 
 
 # strict mode
+Set by inserting `"use strict";` at the top of a .js file.
+
 * Makes debugging easier by throwing errors, which would have otherwise passed.
 * Prevents accidental globals
 * Eliminates `this` being set to window
