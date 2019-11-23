@@ -326,3 +326,5 @@ user2.state;
 ```
 
 ### Model, View, Controller
+
+In a traditional application, the model uses the Observer Pattern and pushes any changes to the View (subscriber).
