@@ -4,14 +4,16 @@
 - [creational patterns](#creational-patterns)
   - [Constructor Pattern](#constructor-pattern)
   - [Factory Pattern](#factory-pattern)
+  - [Prototype pattern](#prototype-pattern)
   - [Singleton Pattern](#singleton-pattern)
 - [structural patterns](#structural-patterns)
   - [Decorator Pattern](#decorator-pattern)
   - [Facade Pattern](#facade-pattern)
 - [behavioral patterns](#behavioral-patterns)
   - [Observer Pattern](#observer-pattern)
-- [architectual patterns](#architectual-patterns)
-  - [Model, View, Controller](#model-view-controller)
+  - [Model, View, Controller (MVC)](#model-view-controller-mvc)
+  - [Model, View, Presenter (MVP)](#model-view-presenter-mvp)
+  - [Mode, View, ViewModel (MVVM)](#mode-view-viewmodel-mvvm)
 
 <!-- TOC END -->
 

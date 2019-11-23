@@ -1,10 +1,21 @@
 # strings
 
 <!-- TOC -->
-- [`slice(start, end)`](#slicestart-end)
-- [`split()`](#split)
+- [printing](#printing)
+  - [line break](#line-break)
+- [methods](#methods)
+  - [`slice(start, end)`](#slicestart-end)
+  - [`split()`](#split)
 
 <!-- TOC END -->
+
+# printing
+
+### line break
+A backslash can be inserted in a string to create a line break.
+`document.write('First line \Second line');`
+
+# methods
 
 ### `slice(start, end)`
 Returns a new string with the extracted parts of the old string.

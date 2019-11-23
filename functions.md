@@ -4,7 +4,6 @@
 - [class](#class)
   - [class declarations](#class-declarations)
   - [sub classing with `extends`](#sub-classing-with-extends)
-  - [class constructor](#class-constructor)
 - [this](#this)
   - [`this` in a callback](#this-in-a-callback)
   - [`this` in a closure](#this-in-a-closure)
