@@ -28,21 +28,25 @@ Special functions for creating and managing objects. Properties are set via the 
 
 Class methods can be set after the constructor method.
 
+
 ## class declarations
+
 ```javascript
 class Rectangle { // Rectangle is class name
   constructor(height, width) {
     this.height = height;
     this.width = width;
   }
-  
+
   area() {
     return this.height * this.width;
   }
 }
 ```
 
+
 ## sub classing with `extends`
+
 Creates a child class from a parent class.
 ```javascript
 class Animal {
@@ -294,3 +298,7 @@ let waitSeconds = numSeconds => new Promise(resolve => {
 waitSeconds(4)
   .then(message => console.log(message));
 ```
+
+
+# Higher-Order Functions
+A Higher-Order Function (HOF) is a function, which takes another function as a parameter. Examples are `map()`, `reduce()`, `filter()`

@@ -6,7 +6,6 @@
 - [destructuring](#destructuring)
 - [event loop](#event-loop)
 - [hoisting](#hoisting)
-- [higher order components (HOC)](#higher-order-components-hoc)
 - [inheritance](#inheritance)
 - [modules](#modules)
   - [export](#export)
@@ -86,10 +85,6 @@ var nextListItem = function() {
 `var` is hoisted. `let` and `const` are not.
 
 Declarations (`var x;`) are hoisted. Initializations (`x = 2;`) are not.
-
-
-
-# higher order components (HOC)
 
 
 
