@@ -19,6 +19,7 @@
     - [private methods](#private-methods)
 - [currying](#currying)
 - [promises](#promises)
+- [Higher-Order Functions](#higher-order-functions)
 
 <!-- TOC END -->
 
@@ -166,6 +167,36 @@ No bindings for `this`, `super`, `arguments`, or `new.target`. Therefore, arrow 
 
 # closure
 A function bound to its lexical state. Good for data closing and encapsulation.
+
+A simple closure is like accessing a function with only one method:
+```JavaScript
+const accountBalance = () => {
+  let balance = 2200.00;
+  const displayBalance = () => console.log(`$${balance}`);
+  return displayBalance;
+}
+const viewBalance = accountBalance();
+viewBalance(); // $2200.00
+```
+
+More complex closures can be created by returning an object with different methods:
+```JavaScript
+const bankApp = () => {
+  let balance = 0;
+  const changeBalance = amount => {
+    balance += amount;
+    console.log(`Your current balance is $${balance}`);
+  }
+  return {
+    balance: function() {console.log(`$${balance}`);},
+    deposit: function(amt) {changeBalance(amt)},
+    withdrawl: function(amt) {changeBalance(-amt)}
+  };
+}
+const bank = bankApp();
+bank.balance();
+```
+
 
 If closure is not specifically needed, it is better to assign methods to object prototype, as it is better for performance.
 ```JavaScript

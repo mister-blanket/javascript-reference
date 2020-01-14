@@ -32,3 +32,10 @@ str.split(''); // ['h', 'i', ' ', 't', 'h', 'e', 'r', 'e', ',', ' ', 'y', 'o', '
 str.split(' '); // ['hi', 'there,', 'friend']
 str.split(','); // ['hi there', 'friend']
 ```
+
+### `trim()`
+Removes whitespace from both sides of a string.
+```JavaScript
+let str = "    Hi, you.  "
+str.trim(): // "Hi, you."
+```

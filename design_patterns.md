@@ -22,7 +22,7 @@ These patterns help to manage object creation.
 
 
 ### Constructor Pattern
-Not a true patter, but a concept in JavaScript. Uses class constructors and use them to initiate new objects.
+Not a true pattern, but a concept in JavaScript. Uses class constructors and use them to initiate new objects.
 
 ```JavaScript
 // ES6
